@@ -1,0 +1,51 @@
+.loginuser {
+  height: 713px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.formuser {
+  padding: 50px 30px;
+  width: 25%;
+}
+.pointer:hover {
+  cursor: pointer;
+}
+#numberinput {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  height: 35px;
+  margin-bottom: 20px;
+}
+.submitbtn {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: orange;
+  border: none;
+}
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  background-color: #fafafa;
+  margin-top: 100px;
+  height: 250px;
+}
+.ssicons {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.copyright {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-top: solid #ebebeb 15px;
+}
