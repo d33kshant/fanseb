@@ -1,16 +1,39 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 5000;
-const connecttomongo = require('./db.js');
+require('dotenv').config()
 
-connecttomongo();
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
 
-app.use(cors());
-app.use(express.json());
+const authRoute = require('./routes/auth')
 
-app.use('/api/auth', require('./routes/auth'))
+const PORT = process.env.PORT || 5000
+const DB_URI = process.env.DB_URI
 
-app.listen(port, () => {
-    console.log('Server is running on port: ' + port);
+const app = express()
+app.use(express.json())
+app.use(cors())
+
+app.use('/api/auth', authRoute)
+
+mongoose.connect(DB_URI, error => {
+    if (error) {
+        console.log('Failed to connect to database.')
+    } else {
+        console.log('Connected to database.')
+        const server = app.listen(PORT, () => {
+            console.log('Server listening on port:', PORT)
+        })
+
+        const gracefulShutdown = signal => {
+            process.on(signal, async () => {
+                server.close()
+                await mongoose.disconnect()
+                console.log('Database Disconnected.')
+                console.log('Server Closed:', signal)
+                process.exit(0)
+            })
+        }
+
+        ["SIGTERM", "SIGINT"].forEach(signal => gracefulShutdown(signal))
+    }
 })
