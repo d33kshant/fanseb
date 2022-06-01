@@ -7,7 +7,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 // Import Routes
-const authRoute = require('./routes/auth')
+const authRoute = require('./routes/auth.route')
 
 // Constants
 const PORT = process.env.PORT || 5000
