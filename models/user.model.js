@@ -23,7 +23,8 @@ const UsersSchema = new Schema({
     gender: {
         type: String,
         required: true
-    }
+    },
+    liked_products: [String],
 })
 
 module.exports = mongoose.model('users', UsersSchema);
