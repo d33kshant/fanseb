@@ -8,6 +8,8 @@ const mongoose = require('mongoose')
 
 // Import Routes
 const authRoute = require('./routes/auth.route')
+const collectionRoute = require('./routes/collection.route')
+const productRoute = require('./routes/product.route')
 
 // Constants
 const PORT = process.env.PORT || 5000
@@ -20,6 +22,8 @@ app.use(cors())
 
 // Setup Routes
 app.use('/api/auth', authRoute)
+app.use('/api/collection', collectionRoute)
+app.use('/api/product', productRoute)
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
