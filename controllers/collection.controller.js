@@ -42,5 +42,6 @@ const deleteCollection = async (req, res) => {
 }
 
 module.exports = {
-	createCollection
+	createCollection,
+	deleteCollection
 }
