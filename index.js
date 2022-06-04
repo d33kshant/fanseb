@@ -37,8 +37,7 @@ mongoose.connect(DB_URI, error => {
             console.log('Server listening on port:', PORT)
         })
 
-        // Graceful shutdown
-        ["SIGTERM", "SIGINT"].forEach(signal => {
+        const gracefulShutdown = signal => {
             process.on(signal, async () => {
                 server.close()
                 await mongoose.disconnect()
@@ -46,6 +45,9 @@ mongoose.connect(DB_URI, error => {
                 console.log('Server Closed:', signal)
                 process.exit(0)
             })
-        })
+        }
+
+        // Graceful shutdown
+        ["SIGTERM", "SIGINT"].forEach(gracefulShutdown)
     }
 })
