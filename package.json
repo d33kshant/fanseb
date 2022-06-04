@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon index"
+        "dev": "nodemon index",
+        "dev:fs": "nodemon fileUploadServer.js"
     },
     "author": "smit",
     "license": "ISC",
@@ -13,7 +14,12 @@
         "cors": "^2.8.5",
         "dotenv": "^16.0.1",
         "express": "^4.18.1",
+        "express-fileupload": "^1.4.0",
+        "get-video-duration": "^4.1.0",
         "mongoose": "^6.3.4",
+        "shortid": "^2.2.16"
+    },
+    "devDependencies": {
         "nodemon": "^2.0.16"
     }
 }
