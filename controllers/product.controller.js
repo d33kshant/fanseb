@@ -1,4 +1,5 @@
 const Product = require("../models/product.model")
+const User = require("../models/user.model")
 
 const addProduct = async (req, res) => {
 	const {
@@ -70,8 +71,35 @@ const getProducts = async (req, res) => {
 	}
 }
 
+const likeProduct = (req, res) => {
+	const user_id = "" // TODO: Get user id with auth
+	const { product_id } = req.body
+
+	try {
+		const user = await User.findById(user_id)
+		if (user.liked_products.indexOf(product_id) === -1) {
+			user.liked_products.push(product_id)
+			await user.save()
+			res.json({
+				message: "Product has been added to liked products"
+			})
+		} else {
+			user.liked_products = user.liked_products.filter(product => product !== product_id)
+			await user.save()
+			res.json({
+				message: "Product has been removed from liked products."
+			})
+		}
+	} catch (error) {
+		res.json({
+			error: "Something went wrong."
+		})
+	}
+}
+
 module.exports = {
 	addProduct,
 	getProducts,
 	updateProduct,
+	likeProduct,
 }
