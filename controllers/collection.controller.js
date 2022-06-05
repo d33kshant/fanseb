@@ -28,6 +28,7 @@ const createCollection = async (req, res) => {
 const deleteCollection = async (req, res) => {
 	const { id } = req.body
 	try {
+		// TODO: check if current user is author of the collection
 		const collection = await Collection.findByIdAndDelete(id)
 		res.json({
 			message: "Collection has been deleted",
@@ -46,6 +47,7 @@ const addProductInCollection = async (req, res) => {
 	const { product_id } = req.body.product
 
 	try {
+		// TODO: check if current user is author of the collection
 		const collection = await Collection.findById(collection_id)
 		if (collection) {
 			if (collection.products.indexOf(product_id) === -1) {
@@ -77,6 +79,7 @@ const removeProductFromCollection = async (req, res) => {
 	const { product_id } = req.body.product
 
 	try {
+		// TODO: check if current user is author of the collection
 		const collection = await Collection.findById(collection_id)
 		if (collection) {
 			if (collection.products.indexOf() !== -1) {
