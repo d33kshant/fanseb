@@ -6,6 +6,7 @@ import Creatorprofile from './components/Creator/Profile/Creatorprofile';
 import Userlogin from './components/User/Login/Userlogin';
 import Userprofile from './components/User/Profile/Userprofile';
 import { AuthProvider } from './context/FirebaseContext';
+import CreatorProfile from './pages/CreatorProfile';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <AuthProvider>
         <Router>
           <Routes>
+            <Route path='/' element={<CreatorProfile />} />
             <Route exact path="/creatorlogin" element={<Creatorlogin />} />
             <Route exact path="/creatorprofile" element={<Creatorprofile />} />
             <Route exact path='/userlogin' element={<Userlogin />} />
