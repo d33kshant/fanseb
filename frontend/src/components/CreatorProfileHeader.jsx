@@ -1,4 +1,6 @@
-export default function CreatorProfileHeader(creator) {
+import "../styles/CreatorProfileHeader.css"
+
+export default function CreatorProfileHeader({creator}) {
 
 	const user = null // TODO: authenticate current user
 
