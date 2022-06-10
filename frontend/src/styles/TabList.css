@@ -1,0 +1,22 @@
+.tabs-list-container {
+	display: flex;
+	border-bottom: 1px solid lightgray;
+	width: 100%;
+	justify-content: center;
+}
+
+.tab-container {
+	border: none;
+	font-family: inherit;
+	padding: 8px 16px;
+	color: darkgray;
+	background: none;
+	border-bottom: 2px solid transparent;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.active-tab {
+	color: black;
+	border-color: black;
+}

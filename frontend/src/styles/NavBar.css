@@ -1,0 +1,38 @@
+.navbar-background {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: white;
+	border-bottom: 1px solid lightgray;
+}
+
+.navbar-container {
+	padding: 8px 16px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1000px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.navbar-logo-container {
+	font-weight: 500;
+	font-size: large;
+}
+
+.navbar-search-container {
+	background: whitesmoke;
+	padding: 8px 16px;
+	border-radius: 8px;
+}
+
+.navbar-search-input {
+	border: none;
+	background: none;
+	font-family: inherit;
+	font-size: 16px;
+	width: 100%;
+	outline: none;
+}
