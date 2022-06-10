@@ -1,9 +1,10 @@
-import { useState } from "react"
+import React, { useState } from "react"
 // import { useParams } from 'react-router-dom'
 import CollectionTab from "../components/CollectionTab"
 import PebbelsTab from "../components/PebblesTab"
 import ProductsTab from "../components/ProductTab"
 import TabsList from "../components/TabsList"
+import ProfileHeader from "../components/CreatorProfileHeader"
 import "../styles/CreatorProfile.css"
 
 export default function CreatorProfile() {
@@ -55,7 +56,7 @@ export default function CreatorProfile() {
 
     return (
         <div className="creator-profile-container">
-            <CreatorProfile creator={creator} />
+            <ProfileHeader creator={creator} />
             <TabsList active={tab} tabs={tabsList} />
             {tabsList[tab].element}
         </div>
