@@ -1,0 +1,6 @@
+.producr-grid-container {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+	padding: 16px 0;
+}
