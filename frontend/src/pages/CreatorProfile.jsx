@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 // import { useParams } from 'react-router-dom'
 import CollectionTab from "../components/CollectionTab"
-import PebbelsTab from "../components/PebblesTab"
+import PebblesTab from "../components/PebblesTab"
 import ProductsTab from "../components/ProductTab"
 import TabsList from "../components/TabsList"
 import ProfileHeader from "../components/CreatorProfileHeader"
@@ -49,7 +49,7 @@ export default function CreatorProfile() {
         },
         {
             title: "Pebbles",
-            element: <PebbelsTab />,
+            element: <PebblesTab />,
             onClick: () => setTab(2),
         },
     ]
