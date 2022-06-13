@@ -1,0 +1,6 @@
+.pebble-grid-container {
+	display: flex;
+	justify-content: center;
+	gap: 32px;
+	padding: 32px 0;
+}

@@ -1,0 +1,31 @@
+.pebble-card-container {
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	height: fit-content;
+	position: relative;
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.pebble-image {
+	/* height: 100%; */
+	width: 100%;
+	object-fit: cover;
+}
+
+.pebble-timestamp {
+	position: absolute;
+	bottom: 8px;
+	right: 8px;
+	color: white;
+}
+
+.pebble-overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 25%;
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+}
