@@ -1,0 +1,70 @@
+.pebble-page-backgoround {
+	background: rgba(0, 0, 0, .8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	z-index: 5;
+	justify-content: center;
+	align-items: center;
+}
+
+.pebble-page-container {
+	background: white;
+	border-radius: 16px;
+	overflow: hidden;
+	width: 50%;
+	height: 80%;
+	display: flex;
+}
+
+.pebble-page-video-section {
+	width: 50%;
+	max-width: 400px;
+	height: 100%;
+	background: #222;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pebble-page-info-section {
+	flex: 1;
+	height: 100%;
+}
+
+.pebble-page-close-button {
+	position: fixed;
+	top: 16px;
+	right: 16px;
+	color: white;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.pebble-info-header {
+	display: flex;
+	width: 100%;
+	padding: 16px;
+	align-items: center;
+	gap: 8px;
+	border-bottom: 1px solid #eee;
+}
+
+.pebble-header-creator {
+	margin: 0;
+	font-weight: 500;
+}
+
+.pebble-header-date {
+	margin: 0;
+	color: gray;
+}
+
+.pebble-info-discription {
+	width: 100%;
+	padding: 16px;
+}
