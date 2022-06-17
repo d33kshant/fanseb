@@ -1,16 +1,25 @@
-const Pebble = require('../models/Pebble')
+const Pebble = require('../models/pebble.model')
 const Product = require('../models/product.model')
 
-const getPebbleById = async (req, res) => {
-	const id = req.params.id
+const getPebble = async (req, res) => {
+	const id = req.params.id || ""
+	const creator = req.query.creator || ""
 
 	try {
-		const pebble = await Pebble.findById(id)
-		for (const i in pebble.products) {
-			const product = await Product.findById(pebble.products[i]);
-			pebble.products[i] = product
-		}
-		pebble ? res.json(pebble) : res.json({ error: "Pebble not found." })
+		if (id) {
+			const pebble = await Pebble.findById(id)
+			for (const i in pebble.products) {
+				const product = await Product.findById(pebble.products[i]);
+				pebble.products[i] = product
+			}
+			pebble ? res.json(pebble) : res.json({ error: "Pebble not found." })
+		} else if (creator) {
+			const pebbles = await Pebble.find({ creator })
+			if (pebbles) {
+				delete pebbles.products
+				res.json(pebbles)
+			} else res.json({ error: "Pebble not found." })
+		} else res.json({ error: "Missing id or creator in query." })
 	} catch (error) {
 		res.json({
 			error: "Something went wrong.",
@@ -51,6 +60,6 @@ const createPebble = async (req, res) => {
 }
 
 module.exports = {
-	getPebbleById,
+	getPebble,
 	createPebble,
 }

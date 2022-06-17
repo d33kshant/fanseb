@@ -43,7 +43,8 @@ const deleteCollection = async (req, res) => {
 }
 
 const getCollection = async (req, res) => {
-	const { id } = req.query || ""
+	const id = req.query.id || ""
+	const creator = req.query.creator || ""
 	try {
 		if (id) {
 			const collection = await Collection.findById(id)
@@ -54,9 +55,18 @@ const getCollection = async (req, res) => {
 					error: "Collection not found."
 				})
 			}
+		} else if (creator) {
+			const collection = await Collection.find({ creator })
+			if (collection) {
+				res.json(collection)
+			} else {
+				res.json({
+					error: "Collection not found."
+				})
+			}
 		} else {
 			res.json({
-				error: "Collection id missing in query."
+				error: "Collection id or creator missing in query."
 			})
 		}
 	} catch (error) {

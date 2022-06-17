@@ -59,14 +59,18 @@ const getProducts = async (req, res) => {
 	const id = req.query.id || ""
 	const creator = req.query.c || ""
 
-	const filter = id ? { _id: id } : { creator }
-
 	try {
-		const products = await Product.find(filter)
-		res.json(products)
+		if (id) {
+			const product = await Pebble.findById(id)
+			product ? res.json(product) : res.json({ error: "Pebble not found." })
+		} else if (creator) {
+			const products = await Pebble.find({ creator })
+			products ? res.json(products) : res.json({ error: "Pebble not found." })
+		} else res.json({ error: "Missing id or creator in query." })
 	} catch (error) {
 		res.json({
-			error: "Something went wrong."
+			error: "Something went wrong.",
+			payload: error
 		})
 	}
 }
