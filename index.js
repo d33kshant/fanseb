@@ -10,6 +10,7 @@ const mongoose = require('mongoose')
 const authRoute = require('./routes/auth.route')
 const collectionRoute = require('./routes/collection.route')
 const productRoute = require('./routes/product.route')
+const pebbleRoute = require('./routes/pebble.route')
 
 // Constants
 const PORT = process.env.PORT || 5000
@@ -24,6 +25,7 @@ app.use(cors())
 app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
+app.use('/api/pebble', pebbleRoute)
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
