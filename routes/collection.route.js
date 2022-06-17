@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const { createCollection, deleteCollection, addProductInCollection, removeProductFromCollection } = require('../controllers/collection.controller')
+const { createCollection, getCollection, deleteCollection, addProductInCollection, removeProductFromCollection } = require('../controllers/collection.controller')
 
-router.get('/')
+router.get('/', getCollection)
 router.post('/', createCollection)
 router.delete('/', deleteCollection)
 
