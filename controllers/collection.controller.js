@@ -42,6 +42,30 @@ const deleteCollection = async (req, res) => {
 	}
 }
 
+const getCollection = async (req, res) => {
+	const { id } = req.query || ""
+	try {
+		if (id) {
+			const collection = await Collection.findById(id)
+			if (collection) {
+				res.json(collection)
+			} else {
+				res.json({
+					error: "Collection not found."
+				})
+			}
+		} else {
+			res.json({
+				error: "Collection id missing in query."
+			})
+		}
+	} catch (error) {
+		res.json({
+			error: "Something went wrong."
+		})
+	}
+}
+
 const addProductInCollection = async (req, res) => {
 	const { collection_id } = req.body.collection
 	const { product_id } = req.body.product
@@ -107,6 +131,7 @@ const removeProductFromCollection = async (req, res) => {
 }
 
 module.exports = {
+	getCollection,
 	createCollection,
 	deleteCollection,
 	addProductInCollection,
