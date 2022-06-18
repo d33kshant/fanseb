@@ -6,35 +6,23 @@ import ProductsTab from "../components/ProductTab"
 import TabsList from "../components/TabsList"
 import ProfileHeader from "../components/CreatorProfileHeader"
 import "../styles/CreatorProfile.css"
+import { useParams } from "react-router-dom"
 
 export default function CreatorProfile() {
-    // const { id } = useParams()
-    // const [creator] = useState({
-    // 	avatar: "/avatar.png",
-    // 	name: "Lavisha Arora",
-    // 	follower: 177,
-    // 	bio: "🔷 Professional Makeup Artist & Educator",
-    // 	inFollow: false,
-    // })
-    const creator = {
-        avatar: "/avatar.png",
-        name: "Lavisha Arora",
-        follower: 177,
-        bio: "🔷 Professional Makeup Artist & Educator",
-        inFollow: false,
-    }
+    const [creator, setCreator] = useState(null)
     const [tab, setTab] = useState(0)
 
-    // useEffect(()=>{
-    // 	const fetchCreator = async () => {
-    // 		const response = await fetch('/api/creator/'+ id)
-    // 		const data = await response.json()
+    const { id } = useParams()
 
-    // 		if (data.error) return alert(data.error)
-    // 		setCreator(data)
-    // 	}
-    // 	fetchCreator()
-    // }, [])
+    useEffect(() => {
+        const fetchCreator = async () => {
+            const response = await fetch("/api/creator/" + id)
+            const data = await response.json()
+            if (data.error) return alert(data.error)
+            setCreator(data)
+        }
+        fetchCreator()
+    }, [])
 
     const tabsList = [
         {
