@@ -16,7 +16,7 @@ function App() {
         <NavBar />
         <Router>
           <Routes>
-            <Route path='/' element={<CreatorProfile />} />
+            <Route path='/creator/:id' element={<CreatorProfile />} />
             {/* <Route exact path="/creatorlogin" element={<Creatorlogin />} />
             <Route exact path="/creatorprofile" element={<Creatorprofile />} />
             <Route exact path='/userlogin' element={<Userlogin />} />
