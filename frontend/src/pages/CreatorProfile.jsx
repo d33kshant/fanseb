@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-// import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from "react"
 import CollectionTab from "../components/CollectionTab"
 import PebblesTab from "../components/PebblesTab"
 import ProductsTab from "../components/ProductTab"
