@@ -22,7 +22,9 @@ const PebbleSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	products: [String]
+	products: [String],
+	image: String,
+	timestamp: String
 })
 
 module.exports = mongoose.model('pebble', PebbleSchema)

@@ -48,6 +48,7 @@ const CrestorsSchema = new Schema({
     twittercount: {
         type: Number
     },
+    avatar: String,
 })
 
 module.exports = mongoose.model('creators', CrestorsSchema);
