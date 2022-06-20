@@ -57,14 +57,14 @@ const updateProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
 	const id = req.query.id || ""
-	const creator = req.query.c || ""
+	const creator = req.query.creator || ""
 
 	try {
 		if (id) {
-			const product = await Pebble.findById(id)
+			const product = await Product.findById(id)
 			product ? res.json(product) : res.json({ error: "Pebble not found." })
 		} else if (creator) {
-			const products = await Pebble.find({ creator })
+			const products = await Product.find({ creator })
 			products ? res.json(products) : res.json({ error: "Pebble not found." })
 		} else res.json({ error: "Missing id or creator in query." })
 	} catch (error) {
@@ -75,7 +75,7 @@ const getProducts = async (req, res) => {
 	}
 }
 
-const likeProduct = (req, res) => {
+const likeProduct = async (req, res) => {
 	const user_id = "" // TODO: Get user id with auth
 	const { product_id } = req.body
 
