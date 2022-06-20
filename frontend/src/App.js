@@ -13,8 +13,8 @@ function App() {
   return (
     <div>
       <AuthProvider>
-        <NavBar />
         <Router>
+          <NavBar />
           <Routes>
             <Route path='/creator/:id' element={<CreatorProfile />} />
             <Route exact path="/creatorlogin" element={<Creatorlogin />} />
