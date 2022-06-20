@@ -1,10 +1,7 @@
 import React from "react"
 import "../styles/PebbleView.css"
 
-export default function PebbleView({ onClose }) {
-    const creator = "Lvaish Arora"
-    const date = "05/20/2022"
-    const discription = "Do this for clear underarms"
+export default function PebbleView({ name, avatar, video_url, time, discription, onClose }) {
     return (
         <div className="pebble-page-backgoround" onClick={onClose}>
             <button className="pebble-page-close-button">
@@ -15,16 +12,14 @@ export default function PebbleView({ onClose }) {
             </button>
             <div className="pebble-page-container" onClick={(event) => event.stopPropagation()}>
                 <div className="pebble-page-video-section">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="white" viewBox="0 0 16 16">
-                        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                    </svg>
+                    <video controls={true} className="pebble-video" src={video_url} autoPlay={true} />
                 </div>
                 <div className="pebble-page-info-section">
                     <div className="pebble-info-header">
-                        <img src="/avatar.png" height={38} alt="avatar" />
+                        <img src={avatar} height={38} alt="avatar" />
                         <div className="pebble-header-info">
-                            <p className="pebble-header-creator">{creator}</p>
-                            <p className="pebble-header-date">{date}</p>
+                            <p className="pebble-header-creator">{name}</p>
+                            <p className="pebble-header-date">{time}</p>
                         </div>
                     </div>
                     <div className="pebble-info-discription">{discription}</div>
