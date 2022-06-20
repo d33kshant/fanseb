@@ -3,15 +3,16 @@ import CollectionCard from "./CollectionCard"
 import "../styles/CollectionTab.css"
 import { useState } from "react"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 
 export default function CollectionTab() {
     const [collections, setCollections] = useState([])
 
-    const creator = { id: "random-creator-id" }
+    const { id: creator } = useParams()
 
     useEffect(() => {
         const fetchCollection = async () => {
-            const response = await fetch("/api/collection?creator=" + creator.id)
+            const response = await fetch("/api/collection?creator=" + creator)
             const data = await response.json()
             if (data) {
                 if (data.error) return alert(data.error)
