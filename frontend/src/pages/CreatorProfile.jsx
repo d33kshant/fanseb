@@ -8,7 +8,7 @@ import "../styles/CreatorProfile.css"
 import { useParams } from "react-router-dom"
 
 export default function CreatorProfile() {
-    const [creator, setCreator] = useState(null)
+    const [creator, setCreator] = useState({})
     const [tab, setTab] = useState(0)
 
     const { id } = useParams()
