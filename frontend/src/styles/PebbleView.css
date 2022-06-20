@@ -1,5 +1,5 @@
 .pebble-page-backgoround {
-	background: rgba(0, 0, 0, .8);
+	background: rgba(0, 0, 0, .5);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -24,7 +24,7 @@
 	width: 50%;
 	max-width: 400px;
 	height: 100%;
-	background: #222;
+	background: #333;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -43,6 +43,12 @@
 	background: none;
 	border: none;
 	cursor: pointer;
+}
+
+.pebble-video {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
 }
 
 .pebble-info-header {
