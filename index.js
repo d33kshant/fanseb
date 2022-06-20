@@ -26,6 +26,7 @@ app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
 app.use('/api/pebble', pebbleRoute)
+app.use('/api/creator', require('./controllers/creator.controller'))
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
