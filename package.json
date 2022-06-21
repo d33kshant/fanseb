@@ -17,7 +17,11 @@
         "express-fileupload": "^1.4.0",
         "get-video-duration": "^4.1.0",
         "mongoose": "^6.3.4",
-        "shortid": "^2.2.16"
+        "shortid": "^2.2.16",
+        "razorpay": "^2.8.1",
+        "uniqid": "^5.4.0",
+        "uniquid": "^1.1.4",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "nodemon": "^2.0.16"
