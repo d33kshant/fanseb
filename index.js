@@ -1,10 +1,15 @@
-// Import enviroment variables from .env
+// Import enviroment variables = .env
 require('dotenv').config()
 
 // Import Dependencies
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+
+// Imports from cart merge
+const Razorpay = require('razorpay')
+const uniqid = require('uniqid')
+const crypto = require("crypto")
 
 // Import Routes
 const authRoute = require('./routes/auth.route')
@@ -21,12 +26,64 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+// Cart merge config
+app.use(express.urlencoded({ extended: false }))
+
 // Setup Routes
 app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
 app.use('/api/pebble', pebbleRoute)
 app.use('/api/creator', require('./controllers/creator.controller'))
+
+// Cart merge
+const instance = new Razorpay({ key_id: 'rzp_test_FWaPBQKjitY4pj', key_secret: 'AmgyVjlPGmrnn9IG3sCvlYFu', });
+
+app.post('/create/orderId', async (req, res) => {
+
+    const options = {
+        amount: req.body.amount * 100,
+        currency: "INR",
+        receipt: uniqid()
+    };
+    try {
+        const response = await instance.orders.create(options)
+        console.log(response)
+
+        res.json({
+            id: response.id,
+            currency: response.currency,
+            amount: response.amount
+        })
+
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+app.post('/verifyPayment', async (req, res) => {
+    console.log(req.body.razorpay_signature)
+    try {
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+        const sign = razorpay_order_id + "|" + razorpay_payment_id;
+        const expectedSign = crypto
+            .createHmac("sha256", 'AmgyVjlPGmrnn9IG3sCvlYFu')
+            .update(sign.toString())
+            .digest("hex");
+
+        if (razorpay_signature === expectedSign) {
+            return res.status(200).json({ message: 'success' });
+        }
+        else {
+            return res.status(400).json({ message: "Invalid signature sent!" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error!" });
+        console.log(error);
+    }
+})
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
