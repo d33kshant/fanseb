@@ -10,7 +10,7 @@ router.post('/createuser', async (req, res) => {
     try {
         const _user = await User.findOne({ phonenumber })
         if (_user) return res.json({ error: "User already registred." })
-        let user = await User.create({
+        const user = await User.create({
             name,
             phonenumber,
             email,
@@ -27,7 +27,7 @@ router.post('/createuser', async (req, res) => {
 router.post('/getuser', async (req, res) => {
     const { phonenumber } = req.body;
     try {
-        let user = await User.findOne({ phonenumber });
+        const user = await User.findOne({ phonenumber });
         user ? res.json(user) : res.json({ error: "User not found." });
     } catch (error) {
         res.json({
@@ -79,7 +79,7 @@ router.post('/createcreator', async (req, res) => {
 router.post('/getcreator', async (req, res) => {
     const { phonenumber } = req.body;
     try {
-        let creator = await Creator.findOne({ phonenumber });
+        const creator = await Creator.findOne({ phonenumber });
         creator ? res.json(creator) : res.json({ error: "Creator not found." });
     } catch (error) {
         res.json({
