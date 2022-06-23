@@ -7,22 +7,33 @@ const Creator = require('../models/creator.model');
 
 router.post('/createuser', async (req, res) => {
     const { name, phonenumber, email, dob, gender } = req.body;
-    let user = await User.create({
-        name,
-        phonenumber,
-        email,
-        dob,
-        gender
-    })
-    res.json(user);
+    try {
+        const _user = await User.findOne({ phonenumber })
+        if (_user) return res.json({ error: "User already registred." })
+        let user = await User.create({
+            name,
+            phonenumber,
+            email,
+            dob,
+            gender
+        })
+        res.json(user);
+    } catch (error) {
+        res.json({
+            error: "Something went wrong."
+        })
+    }
 });
 router.post('/getuser', async (req, res) => {
     const { phonenumber } = req.body;
-    let user = await User.findOne({ phonenumber });
-    if (user)
-        res.json(user);
-    else
-        res.send(false);
+    try {
+        let user = await User.findOne({ phonenumber });
+        user ? res.json(user) : res.json({ error: "User not found." });
+    } catch (error) {
+        res.json({
+            error: "Something went wrong."
+        })
+    }
 });
 router.post('/createcreator', async (req, res) => {
     const { name, phonenumber, username, email, domain, instagramusername, instagramcount, youtubeusername, youtubecount, facebookusername, facebookcount, twitterusername, twittercount } = req.body;
