@@ -36,7 +36,21 @@ router.post('/getuser', async (req, res) => {
     }
 });
 router.post('/createcreator', async (req, res) => {
-    const { name, phonenumber, username, email, domain, instagramusername, instagramcount, youtubeusername, youtubecount, facebookusername, facebookcount, twitterusername, twittercount } = req.body;
+    const {
+        name,
+        phonenumber,
+        username,
+        email,
+        domain,
+        instagramusername,
+        instagramcount,
+        youtubeusername,
+        youtubecount,
+        facebookusername,
+        facebookcount,
+        twitterusername,
+        twittercount
+    } = req.body;
     try {
         const _creator = await Creator.findOne({ phonenumber })
         if (_creator) return res.json({ error: "Creator already registred." })
