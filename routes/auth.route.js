@@ -37,30 +37,41 @@ router.post('/getuser', async (req, res) => {
 });
 router.post('/createcreator', async (req, res) => {
     const { name, phonenumber, username, email, domain, instagramusername, instagramcount, youtubeusername, youtubecount, facebookusername, facebookcount, twitterusername, twittercount } = req.body;
-    let creator = await Creator.create({
-        name,
-        phonenumber,
-        username,
-        email,
-        domain,
-        instagramusername,
-        instagramcount,
-        youtubeusername,
-        youtubecount,
-        facebookusername,
-        facebookcount,
-        twitterusername,
-        twittercount
-    })
-    res.json(creator);
+    try {
+        const _creator = await Creator.findOne({ phonenumber })
+        if (_creator) return res.json({ error: "Creator already registred." })
+        let creator = await Creator.create({
+            name,
+            phonenumber,
+            username,
+            email,
+            domain,
+            instagramusername,
+            instagramcount,
+            youtubeusername,
+            youtubecount,
+            facebookusername,
+            facebookcount,
+            twitterusername,
+            twittercount
+        })
+        res.json(creator);
+    } catch (error) {
+        res.json({
+            error: "Something went wrong."
+        })
+    }
 });
 router.post('/getcreator', async (req, res) => {
     const { phonenumber } = req.body;
-    let creator = await Creator.findOne({ phonenumber });
-    if (creator)
-        res.json(creator);
-    else
-        res.send(false);
+    try {
+        let creator = await Creator.findOne({ phonenumber });
+        creator ? res.json(creator) : res.json({ error: "Creator not found." });
+    } catch (error) {
+        res.json({
+            error: "Something went wrong."
+        })
+    }
 });
 
 module.exports = router;
