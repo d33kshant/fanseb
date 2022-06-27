@@ -14,29 +14,32 @@ import OrderStatus from './components/Creator/OrderStatus'
 import TrackOrder from './components/Creator/TrackOrder'
 import CreatorProfile from './pages/CreatorProfile';
 import NavBar from './components/NavBar';
+import CartProvider from './context/CartContext';
 
 
 function App() {
   return (
     <div>
-      <AuthProvider>
-        <Router>
-          <NavBar />
-          <Routes>
-            <Route exact path='/' element={<Cart />} />
-            <Route path='/creator/:id' element={<CreatorProfile />} />
-            <Route exact path="/creatorlogin" element={<Creatorlogin />} />
-            <Route exact path="/creatorprofile" element={<Creatorprofile />} />
-            <Route exact path='/userlogin' element={<Userlogin />} />
-            <Route exact path='/userprofile' element={<Userprofile />} />
-            <Route path='/order-status' element={<OrderStatus />} />
-            <Route path='/track-order' element={<TrackOrder />} />
-            <Route exact path='/brand-dashboard' element={<BrandDashboard />} />
-            <Route exact path='/productsList' element={<ProductsList />} />
-            <Route exact path='/orderslist' element={<OrdersList />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
+      <CartProvider>
+        <AuthProvider>
+          <Router>
+            <NavBar />
+            <Routes>
+              <Route exact path='/' element={<Cart />} />
+              <Route path='/creator/:id' element={<CreatorProfile />} />
+              <Route exact path="/creatorlogin" element={<Creatorlogin />} />
+              <Route exact path="/creatorprofile" element={<Creatorprofile />} />
+              <Route exact path='/userlogin' element={<Userlogin />} />
+              <Route exact path='/userprofile' element={<Userprofile />} />
+              <Route path='/order-status' element={<OrderStatus />} />
+              <Route path='/track-order' element={<TrackOrder />} />
+              <Route exact path='/brand-dashboard' element={<BrandDashboard />} />
+              <Route exact path='/productsList' element={<ProductsList />} />
+              <Route exact path='/orderslist' element={<OrdersList />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </CartProvider>
     </div>
   );
 }
