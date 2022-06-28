@@ -15,6 +15,7 @@ import TrackOrder from './components/Creator/TrackOrder'
 import CreatorProfile from './pages/CreatorProfile';
 import NavBar from './components/NavBar';
 import CartProvider from './context/CartContext';
+import CartPage from './pages/CartPage';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Router>
             <NavBar />
             <Routes>
-              <Route exact path='/' element={<Cart />} />
+              <Route exact path='/cart' element={<CartPage />} />
               <Route path='/creator/:id' element={<CreatorProfile />} />
               <Route exact path="/creatorlogin" element={<Creatorlogin />} />
               <Route exact path="/creatorprofile" element={<Creatorprofile />} />
