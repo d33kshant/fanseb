@@ -27,6 +27,7 @@ function App() {
             <NavBar />
             <Routes>
               <Route exact path='/cart' element={<CartPage />} />
+              <Route exact path='/' element={<Cart />} />
               <Route path='/creator/:id' element={<CreatorProfile />} />
               <Route exact path="/creatorlogin" element={<Creatorlogin />} />
               <Route exact path="/creatorprofile" element={<Creatorprofile />} />
