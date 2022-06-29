@@ -1,0 +1,40 @@
+.cart-page-container {
+	display: flex;
+	padding: 16px;
+	box-sizing: border-box;
+	gap: 16px;
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.cart-page-items {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	gap: 16px;
+	flex: 1;
+}
+
+.cart-order-container {
+	flex: 1;
+}
+
+.cart-order-form {
+	border: 1px solid silver;
+	height: 500px;
+	border-radius: 8px;
+	margin-top: 16px;
+}
+
+.cart-item-title {
+	font-size: 24px;
+	font-weight: 500;
+	margin: 0;
+}
+
+@media (max-width: 600px) {
+	.cart-page-container {
+		flex-direction: column;
+	}
+}
