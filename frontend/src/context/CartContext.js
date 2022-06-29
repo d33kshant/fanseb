@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 
-export const CartContext = createContext({ items: [], add: (item) => { }, remove: (item) => { } })
+export const CartContext = createContext({ items: [], add: (item) => { }, remove: (item) => { }, clear: () => { } })
 
 const CartProvider = ({ children }) => {
 	// items is an array of objects with the following properties:
@@ -24,12 +24,12 @@ const CartProvider = ({ children }) => {
 	// TODO: fetch data from backend
 	// }, [])
 
-	const add = (item) => {
+	const add = (id) => {
 		// find if item is already in cart
-		const index = items.findIndex(i => i.id === item.id)
+		const index = items.findIndex(i => i.id === id)
 		if (index === -1) {
 			// if not, add it
-			setItems([...items, item])
+			setItems([...items, { id: id, quantity: 1 }])
 		} else {
 			// if it is, increase quantity
 			const newItems = [...items]
@@ -38,12 +38,10 @@ const CartProvider = ({ children }) => {
 		}
 	}
 
-	const remove = (item) => {
+	const remove = (id) => {
 		// find if item is already in cart
-		const index = items.findIndex(i => i.id === item.id)
-		if (index === -1) {
-			// if not, do nothing
-		} else {
+		const index = items.findIndex(i => i.id === id)
+		if (index !== -1) {
 			// if it is, decrease quantity
 			const newItems = [...items]
 			newItems[index].quantity -= 1
@@ -52,8 +50,10 @@ const CartProvider = ({ children }) => {
 		}
 	}
 
+	const clear = () => setItems([])
+
 	return (
-		<CartContext.Provider value={{ items, add, remove }}>
+		<CartContext.Provider value={{ items, add, remove, clear }}>
 			{children}
 		</CartContext.Provider>
 	)
