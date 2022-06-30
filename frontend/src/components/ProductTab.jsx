@@ -27,7 +27,7 @@ export default function ProductTab() {
     return (
         <div className="product-grid-container">
             {products.map((product) => (
-                <ProductCard key={product.id} {...product} />
+                <ProductCard key={product._id} id={product._id} {...product} />
             ))}
         </div>
     )
