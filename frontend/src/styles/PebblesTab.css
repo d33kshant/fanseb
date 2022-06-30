@@ -1,6 +1,9 @@
 .pebble-grid-container {
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	justify-content: center;
 	gap: 32px;
 	padding: 32px 0;
+	max-width: 1000px;
+	width: 100%;
 }

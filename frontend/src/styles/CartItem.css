@@ -4,6 +4,7 @@
 	padding: 8px 16px;
 	display: flex;
 	gap: 16px;
+	position: relative;
 }
 
 .cart-item-info {
@@ -78,4 +79,12 @@
 .cart-item-remove-button {
 	border: none;
 	border-left: 1px solid silver;
+}
+
+.remove-cart-item {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	border: none;
+	background: none;
 }
