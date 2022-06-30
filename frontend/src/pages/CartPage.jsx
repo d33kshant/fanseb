@@ -31,23 +31,16 @@ export default function CartPage() {
         setFormState(_formState)
     }
 
-    const totalPrice = items.map((item) => item.selling_price).reduce((p, c) => p + c)
-
     return (
         <div className="cart-page-container">
             <div className="cart-page-items">
-                <h3 className="cart-item-title">Your Cart ({items.length})</h3>
-                {items.map((item) => (
-                    <CartItem key={item.id} id={item.id} count={item.quantity} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />
-                ))}
+                <h3 className="cart-item-title">Your Cart ({items.reduce((p, c) => p + c.quantity, 0)})</h3>
+                {items.length > 0 ? items.map((item) => <CartItem key={item.id} item={item.id} count={item.quantity} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />) : <p>You cart is empty, Try adding some product.</p>}
             </div>
             <div className="cart-order-container">
                 <h3 className="cart-item-title">Order Form</h3>
                 <form className="cart-order-form" onSubmit={formSubmit}>
-                    <div className="cart-info-container">
-                        <span>Total Items: {items.reduce((p, c) => p.quantity + c.quantity)}</span>
-                        <span>Total Price: {totalPrice}</span>
-                    </div>
+                    <div className="cart-info-container">{/* <span>Total Items: {items.reduce((p, c) => p + c.quantity, 0)}</span> */}</div>
                 </form>
             </div>
         </div>
