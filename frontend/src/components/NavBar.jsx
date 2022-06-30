@@ -1,8 +1,11 @@
 import React from "react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { CartContext } from "../context/CartContext"
 import "../styles/NavBar.css"
 
 export default function NavBar() {
+    const { items } = useContext(CartContext)
     return (
         <div className="navbar-background">
             <div className="navbar-container">
@@ -15,7 +18,8 @@ export default function NavBar() {
                     <input className="navbar-search-input" placeholder="What are you looking for?" />
                 </div>
                 <div className="navbar-links-container">
-                    <Link to="/">
+                    <Link to="/cart">
+                        {items.length > 0 && <span className="cart-count-badge">{items.reduce((p, c) => p + c.quantity, 0)}</span>}
                         <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="9" cy="21" r="1"></circle>
                             <circle cx="20" cy="21" r="1"></circle>
