@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from "react"
+import { useContext } from "react"
+import { CartContext } from "../context/CartContext"
 import "../styles/CartItem.css"
 
-export default function CartItem({ id, count, onAddClick, onRemoveClick }) {
-    // const [item, setItem] = useState(null)
+export default function CartItem({ item: id, count, onAddClick, onRemoveClick }) {
+    const [item, setItem] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const item = {
-        name: "Make Up Kit",
-        original_price: 250,
-        selling_price: 200,
-        category: "Makeup",
-        image: "/cloth1.jpg",
-    }
+    const { removeAll } = useContext(CartContext)
 
-    // useEffect(() => {
-    // 	const response = await fetch(`/api/products?id=${id}`)
-    // 	const data = await response.json()
-    // 	setLoading(false)
-    // 	if (data.erro) return alert(data.error)
-    // 	setItem(data)
-    // }, [])
+    useEffect(() => {
+        const fetchItem = async () => {
+            const response = await fetch(`/api/product?id=${id}`)
+            const data = await response.json()
+            setLoading(false)
+            if (data.erro) return alert(data.error)
+            setItem(data)
+        }
+        fetchItem()
+    }, [])
 
-    const discount = item.original_price ? Math.floor(100 - (item.selling_price / item.original_price) * 100) : 0
+    const discount = item && item.original_price ? Math.floor(100 - (item.selling_price / item.original_price) * 100) : 0
 
     return (
         <div className="cart-item-container">
-            <img className="cart-item-image" src={item.image} alt="" />
+            <button className="remove-cart-item" onClick={() => removeAll(id)}>
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            {<img className="cart-item-image" src={(item && item.image) || "product.png"} alt="" />}
             <div className="cart-item-info">
                 {!loading && item ? (
                     <>
