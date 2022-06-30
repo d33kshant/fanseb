@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 
-export const CartContext = createContext({ items: [], add: (item) => { }, remove: (item) => { }, clear: () => { } })
+export const CartContext = createContext({ items: [], add: (item) => { }, remove: (item) => { }, removeAll: () => { }, clear: () => { } })
 
 const CartProvider = ({ children }) => {
 	// items is an array of objects with the following properties:
@@ -8,23 +8,14 @@ const CartProvider = ({ children }) => {
 	// option: string
 	// quantity: number
 	// example: { id: '1234', quantity: 1 }
-	const [items, setItems] = useState([
-		{
-			id: 'abcd',
-			quantity: 3,
-		},
-		{
-			id: 'efgh',
-			quantity: 2
-		}
-	])
+	const [items, setItems] = useState([])
 
 	// Load cart item from user account
 	// useEffect(() => {
 	// TODO: fetch data from backend
 	// }, [])
 
-	const add = (id) => {
+	const add = (id, option) => {
 		// find if item is already in cart
 		const index = items.findIndex(i => i.id === id)
 		if (index === -1) {
@@ -43,17 +34,22 @@ const CartProvider = ({ children }) => {
 		const index = items.findIndex(i => i.id === id)
 		if (index !== -1) {
 			// if it is, decrease quantity
-			const newItems = [...items]
+			let newItems = [...items]
 			newItems[index].quantity -= 1
-			if (newItems[index].quantity === 0) newItems.splice(index, 1)
+			if (newItems[index].quantity <= 0) newItems = newItems.filter(item => item.id !== id)
 			setItems(newItems)
 		}
+	}
+
+	const removeAll = (id) => {
+		let newItems = items.filter(item => item.id !== id)
+		setItems(newItems)
 	}
 
 	const clear = () => setItems([])
 
 	return (
-		<CartContext.Provider value={{ items, add, remove, clear }}>
+		<CartContext.Provider value={{ items, add, remove, removeAll, clear }}>
 			{children}
 		</CartContext.Provider>
 	)
