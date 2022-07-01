@@ -1,12 +1,24 @@
 import React, { useContext, useEffect } from "react"
 import { useState } from "react"
 import CartItem from "../components/CartItem"
+import Input from "../components/Input"
 import { CartContext } from "../context/CartContext"
 import "../styles/CartPage.css"
 
 export default function CartPage() {
     const { items, add, remove, clear } = useContext(CartContext)
-    const [formState, setFormState] = useState({})
+    const [formState, setFormState] = useState({
+        first_name: "",
+        last_name: "",
+        address: "",
+        apt_suite: "",
+        city: "",
+        postal: "",
+    })
+
+    const isValid = () => {
+        return !!formState.first_name && !!formState.last_name && !!formState.address && !!formState.apt_suite && !!formState.city && !!formState.postal
+    }
 
     const formSubmit = async (event) => {
         event.preventDefault()
@@ -40,7 +52,23 @@ export default function CartPage() {
             <div className="cart-order-container">
                 <h3 className="cart-item-title">Order Form</h3>
                 <form className="cart-order-form" onSubmit={formSubmit}>
-                    <div className="cart-info-container">{/* <span>Total Items: {items.reduce((p, c) => p + c.quantity, 0)}</span> */}</div>
+                    <div className="cart-form-row">
+                        <Input onChange={(event) => onInputChange("first_name", event.target.value)} value={formState.first_name} required type="text" name="first_name" placeholder="First Name" />
+                        <Input onChange={(event) => onInputChange("last_name", event.target.value)} value={formState.last_name} required type="text" name="last_name" placeholder="Last Name" />
+                    </div>
+                    <div className="cart-form-row">
+                        <Input onChange={(event) => onInputChange("address", event.target.value)} value={formState.address} required type="text" name="address" placeholder="Address" />
+                    </div>
+                    <div className="cart-form-row">
+                        <Input onChange={(event) => onInputChange("apt_suite", event.target.value)} required value={formState.apt_suite} type="text" name="apt_suite" placeholder="Apt. Suite" />
+                    </div>
+                    <div className="cart-form-row">
+                        <Input onChange={(event) => onInputChange("city", event.target.value)} value={formState.city} type="text" name="city" placeholder="City" />
+                        <Input onChange={(event) => onInputChange("postal", event.target.value)} required value={formState.postal} type="text" name="postal" placeholder="Postal Code" />
+                    </div>
+                    <button disabled={!isValid()} className="cart-form-submit">
+                        Place Order
+                    </button>
                 </form>
             </div>
         </div>
