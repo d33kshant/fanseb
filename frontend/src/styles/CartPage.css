@@ -25,12 +25,39 @@
 	height: 500px;
 	border-radius: 8px;
 	margin-top: 16px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .cart-item-title {
 	font-size: 24px;
 	font-weight: 500;
 	margin: 0;
+}
+
+.cart-form-row { 
+	display: flex;
+	gap: 16px;
+}
+
+.cart-form-submit {
+	background: #1976d2;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 16px;
+	font-weight: 500;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+}
+
+.cart-form-submit:disabled {
+	background: lightgray;
+	color: gray;
+	cursor: not-allowed;
+	box-shadow: none;
 }
 
 @media (max-width: 600px) {
