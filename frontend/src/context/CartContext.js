@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const CartContext = createContext({ items: [], add: (item) => { }, remove: (item) => { }, removeAll: () => { }, clear: () => { } })
 
@@ -8,12 +8,18 @@ const CartProvider = ({ children }) => {
 	// option: string
 	// quantity: number
 	// example: { id: '1234', quantity: 1 }
-	const [items, setItems] = useState([])
+	const [items, _setItems] = useState([])
 
-	// Load cart item from user account
-	// useEffect(() => {
-	// TODO: fetch data from backend
-	// }, [])
+	// Load cart item from local storage
+	useEffect(() => {
+		_setItems(JSON.parse(localStorage.getItem('cart')) || [])
+	}, [])
+
+	// Save cart item to local storage
+	const setItems = _items => {
+		localStorage.setItem('cart', JSON.stringify(_items))
+		_setItems(_items)
+	}
 
 	const add = (id, option) => {
 		// find if item is already in cart
