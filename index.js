@@ -5,6 +5,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+let cookieParser = require('cookie-parser');
 
 // Imports from cart merge
 const Razorpay = require('razorpay')
@@ -25,6 +26,7 @@ const DB_URI = process.env.DB_URI
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser());
 
 // Cart merge config
 app.use(express.urlencoded({ extended: false }))
@@ -38,6 +40,25 @@ app.use('/api/creator', require('./controllers/creator.controller'))
 
 // Cart merge
 const instance = new Razorpay({ key_id: 'rzp_test_FWaPBQKjitY4pj', key_secret: 'AmgyVjlPGmrnn9IG3sCvlYFu', });
+
+app.get('/api/auth/authuser', async (req, res, next) => {
+    console.log(req.cookies);
+    const token = req.cookies.token;
+    try {
+        if (!token) {
+            return res.status(400).json({ msg: 'Invalid Authentication' })
+        }
+
+        jwt.verify(token, process.env.ACCESS_SECRET, (err, user) => {
+            if (err) {
+                return res.status(400).json({ msg: 'Invalid Authentication' })
+            }
+            res.json({ isLoggedIn: true, success: true })
+        })
+    } catch (error) {
+        return res.status(400).json({ msg: 'Something went wrong' })
+    }
+})
 
 app.post('/create/orderId', async (req, res) => {
 
@@ -94,7 +115,8 @@ mongoose.connect(DB_URI, error => {
 
         // Start the server after connected to database
         const server = app.listen(PORT, () => {
-            console.log('Server listening on port:', PORT)
+            // console.log('Server listening on port:', PORT)
+            console.log(`Server is listening at http://localhost:${PORT}`)
         })
 
         const gracefulShutdown = signal => {
