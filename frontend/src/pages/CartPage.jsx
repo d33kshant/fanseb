@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react"
+import axios from "axios"
 import { useState } from "react"
 import CartItem from "../components/CartItem"
 import Input from "../components/Input"
@@ -7,6 +8,23 @@ import "../styles/CartPage.css"
 
 export default function CartPage() {
     const { items, add, remove, clear } = useContext(CartContext)
+
+    const [cartItems, setCartItems] = useState([])
+    const [cache, setCache] = useState({})
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            for (const item of items) {
+                const response = await fetch(`/api/product?id=${item.id}`)
+                const data = await response.json()
+                if (data.error) return alert(data.error)
+                setCartItems((prev) => [...prev, { id: item.id, count: item.quantity, ...data }])
+            }
+        }
+        fetchItems()
+        return () => setCartItems([])
+    }, [items])
+
     const [formState, setFormState] = useState({
         first_name: "",
         last_name: "",
@@ -22,19 +40,7 @@ export default function CartPage() {
 
     const formSubmit = async (event) => {
         event.preventDefault()
-        const order = items
-        const response = await fetch("/api/order", {
-            method: "post",
-            headers: {
-                "Content-type": "application/json",
-                accepet: "application/json",
-            },
-            body: JSON.stringify({ order_details: formState, order_items: items }),
-        })
-        const data = await response.json()
-        if (data.error) return alert(data.error)
-        alert("Order has been taken.")
-        clear()
+        handlePayment()
     }
 
     const onInputChange = (key, value) => {
@@ -43,11 +49,56 @@ export default function CartPage() {
         setFormState(_formState)
     }
 
+    const initPayment = (data) => {
+        const options = {
+            key: "rzp_test_FWaPBQKjitY4pj",
+            amount: data.amount,
+            currency: data.currency,
+            name: "Fanseb",
+            description: "Test Transaction",
+            image: "",
+            order_id: data.id,
+            handler: async (response) => {
+                console.log(response)
+                try {
+                    const verifyUrl = "http://localhost:5000/api/payment/verify"
+                    const { data } = await axios.post(verifyUrl, response)
+                    if (data.error) return alert(data.error)
+                    const { data: response } = axios.post("http://localhost:5000/api/order", {
+                        order_details: formState,
+                        order_items: cartItems,
+                        order_paid: true,
+                        payment_data: data,
+                    })
+                    alert(response.message)
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            theme: {
+                color: "#3399cc",
+            },
+        }
+        const rzp1 = new window.Razorpay(options)
+        rzp1.open()
+    }
+
+    const handlePayment = async () => {
+        try {
+            const orderUrl = "http://localhost:5000/api/payment/orders"
+            const totaAmount = cartItems.reduce((prev, current) => prev + current.selling_price * current.count, 0)
+            const { data } = await axios.post(orderUrl, { amount: totaAmount })
+            initPayment(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="cart-page-container">
             <div className="cart-page-items">
                 <h3 className="cart-item-title">Your Cart ({items.reduce((p, c) => p + c.quantity, 0)})</h3>
-                {items.length > 0 ? items.map((item) => <CartItem key={item.id} item={item.id} count={item.quantity} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />) : <p>You cart is empty, Try adding some product.</p>}
+                {cartItems.length > 0 ? cartItems.map((item, index) => <CartItem id={item.id} key={index} item={item} count={item.count} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />) : <p>You cart is empty, Try adding some product.</p>}
             </div>
             <div className="cart-order-container">
                 <h3 className="cart-item-title">Order Form</h3>
@@ -65,6 +116,12 @@ export default function CartPage() {
                     <div className="cart-form-row">
                         <Input onChange={(event) => onInputChange("city", event.target.value)} value={formState.city} type="text" name="city" placeholder="City" />
                         <Input onChange={(event) => onInputChange("postal", event.target.value)} required value={formState.postal} type="text" name="postal" placeholder="Postal Code" />
+                    </div>
+                    <div>
+                        <span>
+                            <b>Total Price :</b>
+                        </span>
+                        <span>₹{cartItems.reduce((prev, current) => prev + current.selling_price * current.count, 0)}</span>
                     </div>
                     <button disabled={!isValid()} className="cart-form-submit">
                         Place Order
