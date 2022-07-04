@@ -6,16 +6,15 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-// Imports from cart merge
-const Razorpay = require('razorpay')
-const uniqid = require('uniqid')
-const crypto = require("crypto")
-
 // Import Routes
 const authRoute = require('./routes/auth.route')
 const collectionRoute = require('./routes/collection.route')
 const productRoute = require('./routes/product.route')
 const pebbleRoute = require('./routes/pebble.route')
+const paymentRoutes = require('./routes/payment.route')
+const creatorRoute = require('./controllers/creator.controller')
+
+const Order = require('./models/order.model')
 
 // Constants
 const PORT = process.env.PORT || 5000
@@ -34,55 +33,14 @@ app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
 app.use('/api/pebble', pebbleRoute)
-app.use('/api/creator', require('./controllers/creator.controller'))
+app.use('/api/creator', creatorRoute)
+app.use("/api/payment/", paymentRoutes);
 
-// Cart merge
-const instance = new Razorpay({ key_id: 'rzp_test_FWaPBQKjitY4pj', key_secret: 'AmgyVjlPGmrnn9IG3sCvlYFu', });
-
-app.post('/create/orderId', async (req, res) => {
-
-    const options = {
-        amount: req.body.amount * 100,
-        currency: "INR",
-        receipt: uniqid()
-    };
-    try {
-        const response = await instance.orders.create(options)
-        console.log(response)
-
-        res.json({
-            id: response.id,
-            currency: response.currency,
-            amount: response.amount
-        })
-
-    } catch (err) {
-        console.log(err)
-    }
-
-})
-
-app.post('/verifyPayment', async (req, res) => {
-    console.log(req.body.razorpay_signature)
-    try {
-        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-
-        const sign = razorpay_order_id + "|" + razorpay_payment_id;
-        const expectedSign = crypto
-            .createHmac("sha256", 'AmgyVjlPGmrnn9IG3sCvlYFu')
-            .update(sign.toString())
-            .digest("hex");
-
-        if (razorpay_signature === expectedSign) {
-            return res.status(200).json({ message: 'success' });
-        }
-        else {
-            return res.status(400).json({ message: "Invalid signature sent!" });
-        }
-    } catch (error) {
-        res.status(500).json({ message: "Internal Server Error!" });
-        console.log(error);
-    }
+app.post('/api/order', async (req, res) => {
+    const data = req.body
+    const order = new Order(data)
+    await order.save()
+    res.json({ message: "Order placed." })
 })
 
 // Connect to database
