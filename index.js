@@ -5,6 +5,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+let cookieParser = require('cookie-parser');
 
 // Import Routes
 const authRoute = require('./routes/auth.route')
@@ -24,6 +25,7 @@ const DB_URI = process.env.DB_URI
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(cookieParser());
 
 // Cart merge config
 app.use(express.urlencoded({ extended: false }))
@@ -52,7 +54,8 @@ mongoose.connect(DB_URI, error => {
 
         // Start the server after connected to database
         const server = app.listen(PORT, () => {
-            console.log('Server listening on port:', PORT)
+            // console.log('Server listening on port:', PORT)
+            console.log(`Server is listening at http://localhost:${PORT}`)
         })
 
         const gracefulShutdown = signal => {
