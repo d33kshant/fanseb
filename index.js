@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 let cookieParser = require('cookie-parser');
 
 // Import Routes
-// const authRoute = require('./routes/auth.route')
+const authRoute = require('./routes/auth.route')
 const collectionRoute = require('./routes/collection.route')
 const productRoute = require('./routes/product.route')
 const pebbleRoute = require('./routes/pebble.route')
