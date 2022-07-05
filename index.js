@@ -8,12 +8,14 @@ const mongoose = require('mongoose')
 let cookieParser = require('cookie-parser');
 
 // Import Routes
-const authRoute = require('./routes/auth.route')
+// const authRoute = require('./routes/auth.route')
 const collectionRoute = require('./routes/collection.route')
 const productRoute = require('./routes/product.route')
 const pebbleRoute = require('./routes/pebble.route')
 const paymentRoutes = require('./routes/payment.route')
 const creatorRoute = require('./controllers/creator.controller')
+
+const adminRoute = require('./routes/admin.route')
 
 const Order = require('./models/order.model')
 
@@ -31,7 +33,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }))
 
 // Setup Routes
-app.use('/api/auth', authRoute)
+// app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
 app.use('/api/pebble', pebbleRoute)
@@ -44,6 +46,8 @@ app.post('/api/order', async (req, res) => {
     await order.save()
     res.json({ message: "Order placed." })
 })
+
+app.use('/api/admin', adminRoute)
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
