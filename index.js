@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }))
 
 // Setup Routes
-// app.use('/api/auth', authRoute)
+app.use('/api/auth', authRoute)
 app.use('/api/collection', collectionRoute)
 app.use('/api/product', productRoute)
 app.use('/api/pebble', pebbleRoute)
