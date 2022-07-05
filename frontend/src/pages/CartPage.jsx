@@ -10,7 +10,6 @@ export default function CartPage() {
     const { items, add, remove, clear } = useContext(CartContext)
 
     const [cartItems, setCartItems] = useState([])
-    const [cache, setCache] = useState({})
 
     useEffect(() => {
         const fetchItems = async () => {
