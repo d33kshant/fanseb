@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "nodemon index",
-        "dev:fs": "nodemon fileUploadServer.js"
+        "dev:fs": "nodemon fileUploadServer.js",
+        "admin": "nodemon admin"
     },
     "author": "smit",
     "license": "ISC",
