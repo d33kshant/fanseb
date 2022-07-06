@@ -15,8 +15,6 @@ const pebbleRoute = require('./routes/pebble.route')
 const paymentRoutes = require('./routes/payment.route')
 const creatorRoute = require('./controllers/creator.controller')
 
-const adminRoute = require('./routes/admin.route')
-
 const Order = require('./models/order.model')
 
 // Constants
@@ -46,8 +44,6 @@ app.post('/api/order', async (req, res) => {
     await order.save()
     res.json({ message: "Order placed." })
 })
-
-app.use('/api/admin', adminRoute)
 
 // Connect to database
 mongoose.connect(DB_URI, error => {
