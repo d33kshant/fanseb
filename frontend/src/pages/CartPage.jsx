@@ -9,20 +9,22 @@ import "../styles/CartPage.css"
 export default function CartPage() {
     const { items, add, remove, clear } = useContext(CartContext)
 
-    const [cartItems, setCartItems] = useState([])
+    // const [cartItems, setCartItems] = useState([])
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            for (const item of items) {
-                const response = await fetch(`/api/product?id=${item.id}`)
-                const data = await response.json()
-                if (data.error) return alert(data.error)
-                setCartItems((prev) => [...prev, { id: item.id, count: item.quantity, ...data }])
-            }
-        }
-        fetchItems()
-        return () => setCartItems([])
-    }, [items])
+    // useEffect(() => {
+    //     for (let i = 0; i < items.length; i++) {
+    //         const item = items[i]
+    //         fetch(`/api/product?id=${item.id}`)
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 if (data.error) return alert(data.error)
+    //                 const _items = [...cartItems]
+    //                 _items.push({ id: item.id, count: item.quantity, ...data })
+    //                 setCartItems(_items)
+    //             })
+    //     }
+    //     return () => setCartItems([])
+    // }, [items])
 
     const [formState, setFormState] = useState({
         first_name: "",
@@ -65,11 +67,12 @@ export default function CartPage() {
                     if (data.error) return alert(data.error)
                     const { data: response } = axios.post("http://localhost:5000/api/order", {
                         order_details: formState,
-                        order_items: cartItems,
+                        order_items: items,
                         order_paid: true,
                         payment_data: data,
                     })
                     alert(response.message)
+                    clear()
                 } catch (error) {
                     console.log(error)
                 }
@@ -85,7 +88,7 @@ export default function CartPage() {
     const handlePayment = async () => {
         try {
             const orderUrl = "http://localhost:5000/api/payment/orders"
-            const totaAmount = cartItems.reduce((prev, current) => prev + current.selling_price * current.count, 0)
+            const totaAmount = items.reduce((prev, current) => prev + current.selling_price * current.count, 0)
             const { data } = await axios.post(orderUrl, { amount: totaAmount })
             initPayment(data.data)
         } catch (error) {
@@ -97,7 +100,7 @@ export default function CartPage() {
         <div className="cart-page-container">
             <div className="cart-page-items">
                 <h3 className="cart-item-title">Your Cart ({items.reduce((p, c) => p + c.quantity, 0)})</h3>
-                {cartItems.length > 0 ? cartItems.map((item, index) => <CartItem id={item.id} key={index} item={item} count={item.count} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />) : <p>You cart is empty, Try adding some product.</p>}
+                {items.length > 0 ? items.map((item) => <CartItem id={item.id} key={item.id} count={item.count} onAddClick={() => add(item.id)} onRemoveClick={() => remove(item.id)} />) : <p>You cart is empty, Try adding some product.</p>}
             </div>
             <div className="cart-order-container">
                 <h3 className="cart-item-title">Order Form</h3>
@@ -120,7 +123,7 @@ export default function CartPage() {
                         <span>
                             <b>Total Price :</b>
                         </span>
-                        <span>₹{cartItems.reduce((prev, current) => prev + current.selling_price * current.count, 0)}</span>
+                        <span>₹{items.reduce((prev, current) => prev + current.selling_price * current.count, 0)}</span>
                     </div>
                     <button disabled={!isValid()} className="cart-form-submit">
                         Place Order

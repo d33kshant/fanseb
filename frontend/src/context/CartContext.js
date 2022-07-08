@@ -6,8 +6,8 @@ const CartProvider = ({ children }) => {
 	// items is an array of objects with the following properties:
 	// id: string
 	// option: string
-	// quantity: number
-	// example: { id: '1234', quantity: 1 }
+	// count: number
+	// example: { id: '1234', count: 1 }
 	const [items, _setItems] = useState([])
 
 	// Load cart item from local storage
@@ -26,11 +26,11 @@ const CartProvider = ({ children }) => {
 		const index = items.findIndex(i => i.id === id)
 		if (index === -1) {
 			// if not, add it
-			setItems([...items, { id: id, quantity: 1 }])
+			setItems([...items, { id: id, count: 1, ...option }])
 		} else {
-			// if it is, increase quantity
+			// if it is, increase count
 			const newItems = [...items]
-			newItems[index].quantity += 1
+			newItems[index].count += 1
 			setItems(newItems)
 		}
 	}
@@ -39,10 +39,10 @@ const CartProvider = ({ children }) => {
 		// find if item is already in cart
 		const index = items.findIndex(i => i.id === id)
 		if (index !== -1) {
-			// if it is, decrease quantity
+			// if it is, decrease count
 			let newItems = [...items]
-			newItems[index].quantity -= 1
-			if (newItems[index].quantity <= 0) newItems = newItems.filter(item => item.id !== id)
+			newItems[index].count -= 1
+			if (newItems[index].count <= 0) newItems = newItems.filter(item => item.id !== id)
 			setItems(newItems)
 		}
 	}
