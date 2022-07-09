@@ -37,8 +37,11 @@ const Userlogin = (props) => {
         if (json.success) {
             setIsLogin(false)
             setUser(json.user)
+            setTimeout(() => {
+                navigate("/cart")
+            }, 10000)
         } else {
-            props.showAlert(json.error, "danger")
+            alert(json.error)
         }
     }
     const goback = () => {
