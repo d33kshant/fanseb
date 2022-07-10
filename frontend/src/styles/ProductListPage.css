@@ -1,0 +1,31 @@
+.productListDiv{
+    font-family: roboto;
+}
+.productListDiv small{
+    color: #A9A9A9;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 16px;
+}
+.productListDiv .artistNav{
+  border-bottom: 1px solid #E6E6E6;
+  margin-top: 5%;
+}
+.artistNav .flexBox{
+    width: 50%;
+    margin: 0 auto;
+}
+.link {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+ transition: color ease-in-out 300ms;
+}
+ .active-link {
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 2px solid rgba(19, 20, 27, 1);
+  transition: color ease-in-out 300ms;
+  color: black;
+  padding: 0 15px;
+}

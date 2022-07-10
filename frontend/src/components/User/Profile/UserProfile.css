@@ -1,0 +1,21 @@
+.defaultImg{
+    position: relative;
+    width: 88px;
+}
+.defaultImg img{
+    border-radius: 30px;
+}
+.cameraPNG{
+   position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 70px;
+   
+}
+.cameraPNG i{
+    background-color: rgb(90, 148, 235)!important;
+    color: white;
+    padding: 2px 7px;
+    border-radius: 15px;
+    font-size: 18px;
+}

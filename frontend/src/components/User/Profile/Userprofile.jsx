@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react'
+import defaultImg from '../../../assets/defaultImg.png'
+import './UserProfile.css'
 
 const Userprofile = () => {
     const day = useRef();
@@ -54,8 +56,16 @@ const Userprofile = () => {
                 {
                     imgData === null ?
                         <>
-                            <i className="fa-solid fa-mountain-sun fa-4x" style={{ backgroundColor: '#e2e2ff', padding: '15px', borderRadius: '30px', color: 'white' }}></i>
-                            <label htmlFor="imageinput"><i className="fa-solid fa-camera" style={{ color: 'white', backgroundColor: '#2597df', marginLeft: '-20px', padding: '7px', borderRadius: '50%', border: 'solid white 4px' }}></i></label>
+                            {/* <i className="fa-solid fa-mountain-sun fa-4x" style={{ backgroundColor: '#e2e2ff', padding: '15px', borderRadius: '30px', color: 'white' }}></i>
+                            <label htmlFor="imageinput"><i className="fa-solid fa-camera" style={{ color: 'white', backgroundColor: '#2597df', marginLeft: '-20px', padding: '7px', borderRadius: '50%', border: 'solid white 4px' }}></i></label> */}
+                            <label htmlFor="imageinput">
+                                <div className='defaultImg'>
+                                    <img className='w-full' src={defaultImg} alt="" />
+                                    <div className='cameraPNG'>
+                                        <i className="bi bi-camera"></i>
+                                    </div>
+                                </div>
+                            </label>
                             <input type="file" id='imageinput' style={{ display: 'none' }} onChange={onChangePicture} />
                         </> :
                         <img src={imgData} alt="" width={100} height={100} style={{ borderRadius: '50%' }} />

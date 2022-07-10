@@ -149,7 +149,7 @@ const Cart = () => {
                 >
                   <form className="row g-3">
                     <div className="col-md-6">
-                      <label for="inputEmail4" className="form-label">
+                      <label htmlFor="inputEmail4" className="form-label">
                         First Name*
                       </label>
                       <input
@@ -163,7 +163,7 @@ const Cart = () => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label for="inputPassword4" className="form-label">
+                      <label htmlFor="inputPassword4" className="form-label">
                         Last Name*
                       </label>
                       <input
@@ -203,7 +203,7 @@ const Cart = () => {
                     </div>
 
                     <div className="col-md-6">
-                      <label for="inputCity" className="form-label">
+                      <label htmlFor="inputCity" className="form-label">
                         City
                       </label>
                       <input
@@ -217,7 +217,7 @@ const Cart = () => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label for="inputState" className="form-label">
+                      <label htmlFor="inputState" className="form-label">
                         Country
                       </label>
                       <select
@@ -262,7 +262,7 @@ const Cart = () => {
                             value="option1"
                             style={{ borderRadius: 7 }}
                           />
-                          <label className="form-check-label" for="gridRadios1">
+                          <label className="form-check-label" htmlFor="gridRadios1">
                             Home (All Day Delivery)
                           </label>
                         </div>
@@ -276,7 +276,7 @@ const Cart = () => {
                             value="option2"
                             checked
                           />
-                          <label className="form-check-label" for="gridRadios2">
+                          <label className="form-check-label" htmlFor="gridRadios2">
                             Office (Delivery Between 10AM-5PM)
                           </label>
                         </div>

@@ -1,0 +1,23 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    background-color: #fafafa;
+    margin-top: 100px;
+    height: 250px;
+    padding-top: 20px;
+    margin-top: 15%;
+  }
+  .ssicons {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  .copyright {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-top: solid #ebebeb 15px;
+  }

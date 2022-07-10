@@ -9,7 +9,7 @@ const Cart = () => {
   const amnt = 300;
   const navigate = useNavigate()
 
-  async function displayRazorpay(){ 
+  async function displayRazorpay() {
 
     const res = await handleRazorpay('https://checkout.razorpay.com/v1/checkout.js')
 
@@ -18,62 +18,62 @@ const Cart = () => {
       return
     }
 
-    const data = await axios.post('http://localhost:5000/payment/create/orderId', {amount:amnt}).then((t) =>t)
+    const data = await axios.post('http://localhost:5000/payment/create/orderId', { amount: amnt }).then((t) => t)
     console.log(data)
-   const options = {
-    "key": "rzp_test_FWaPBQKjitY4pj",
-    "amount": 9032,
-    "currency": "INR",
-    "name": "Crypto exchange",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": data.id,
-     
-    handler: async (response) => {
-      console.log('response');
-      console.log(response);
-      try {
-        const dt = await axios.post('http://localhost:5000/payment/verifyPayment', response);
-         if(dt === 'success'){
-           setMessage("Transaction successful")
-         }
-      } catch (error) { 
-        console.log(error);
-      } 
-    },
-};
-const paymentObject = new window.Razorpay(options);
-paymentObject.open();
-navigate('/order-status')
+    const options = {
+      "key": "rzp_test_FWaPBQKjitY4pj",
+      "amount": 9032,
+      "currency": "INR",
+      "name": "Crypto exchange",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": data.id,
+
+      handler: async (response) => {
+        console.log('response');
+        console.log(response);
+        try {
+          const dt = await axios.post('http://localhost:5000/payment/verifyPayment', response);
+          if (dt === 'success') {
+            setMessage("Transaction successful")
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+    navigate('/order-status')
 
 
 
 
-paymentObject.on('payment.failed', function (response){
-        // alert(response.error.code);
-        // alert(response.error.description);
-        // alert(response.error.source);
-        // alert(response.error.step);
-        // alert(response.error.reason);
-        // alert(response.error.metadata.order_id);
-        // alert(response.error.metadata.payment_id);
-        setMessage(response.error.code)
-});
-}
+    paymentObject.on('payment.failed', function (response) {
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      // alert(response.error.reason);
+      // alert(response.error.metadata.order_id);
+      // alert(response.error.metadata.payment_id);
+      setMessage(response.error.code)
+    });
+  }
 
-const handleRazorpay = (src) => {
-  return new Promise((resolve) => {
-    const script = document.createElement('script')
-    script.src = src
-    script.onload = () => {
-      resolve(true)
-    }
-    script.onerror = () => {
-      resolve(false)
-    }
-    document.body.appendChild(script)
-  })
-}
+  const handleRazorpay = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script')
+      script.src = src
+      script.onload = () => {
+        resolve(true)
+      }
+      script.onerror = () => {
+        resolve(false)
+      }
+      document.body.appendChild(script)
+    })
+  }
   return (
     <div>
       <div className="m-auto mt-5 shadow" style={{ width: '70%' }}>
@@ -149,7 +149,7 @@ const handleRazorpay = (src) => {
                 >
                   <form className="row g-3">
                     <div className="col-md-6">
-                      <label for="inputEmail4" className="form-label">
+                      <label htmlFor="inputEmail4" className="form-label">
                         First Name*
                       </label>
                       <input
@@ -163,7 +163,7 @@ const handleRazorpay = (src) => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label for="inputPassword4" className="form-label">
+                      <label htmlFor="inputPassword4" className="form-label">
                         Last Name*
                       </label>
                       <input
@@ -203,7 +203,7 @@ const handleRazorpay = (src) => {
                     </div>
 
                     <div className="col-md-6">
-                      <label for="inputCity" className="form-label">
+                      <label htmlFor="inputCity" className="form-label">
                         City
                       </label>
                       <input
@@ -217,7 +217,7 @@ const handleRazorpay = (src) => {
                       />
                     </div>
                     <div className="col-md-6">
-                      <label for="inputState" className="form-label">
+                      <label htmlFor="inputState" className="form-label">
                         Country
                       </label>
                       <select
@@ -262,7 +262,7 @@ const handleRazorpay = (src) => {
                             value="option1"
                             style={{ borderRadius: 7 }}
                           />
-                          <label className="form-check-label" for="gridRadios1">
+                          <label className="form-check-label" htmlFor="gridRadios1">
                             Home (All Day Delivery)
                           </label>
                         </div>
@@ -276,7 +276,7 @@ const handleRazorpay = (src) => {
                             value="option2"
                             checked
                           />
-                          <label className="form-check-label" for="gridRadios2">
+                          <label className="form-check-label" htmlFor="gridRadios2">
                             Office (Delivery Between 10AM-5PM)
                           </label>
                         </div>
@@ -295,7 +295,7 @@ const handleRazorpay = (src) => {
               </div>
 
               {/* --------------------------------------------------------------- */}
-              <div onClick = {displayRazorpay}
+              <div onClick={displayRazorpay}
                 className="card  mx-5 my-3 shadow"
                 style={{ borderRadius: 7 }}
               >
@@ -399,14 +399,14 @@ const handleRazorpay = (src) => {
 
 
                 <div className="d-flex mx-4 p-3">
-                  <p className='pl-2' style={{marginLeft:'5%'}}>Delivery&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                  <p className='pl-2' style={{ marginLeft: '5%' }}>Delivery&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                   <p className='pl-5'>$20 (Express)</p>
                 </div>
 
                 <div className="d-flex mx-4 px-3">
-                  <p className='pl-2' style={{marginLeft:'5%'}}>Discount&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                  <p className='pl-2' style={{ marginLeft: '5%' }}>Discount&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                   <p className='pl-5'>-$10</p>
                 </div>
 
@@ -414,9 +414,9 @@ const handleRazorpay = (src) => {
 
 
                 <div className="d-flex mx-4 px-3">
-                  <p className='pl-2' style={{marginLeft:'5%', fontWeight:'bold', fontSize:30}}>Total&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-                  &nbsp;</p>
-                  <p className='' style={{fontWeight: 'bold', fontSize:30 }}>$1117,00</p>
+                  <p className='pl-2' style={{ marginLeft: '5%', fontWeight: 'bold', fontSize: 30 }}>Total&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                    &nbsp;</p>
+                  <p className='' style={{ fontWeight: 'bold', fontSize: 30 }}>$1117,00</p>
                 </div>
               </div>
             </div>

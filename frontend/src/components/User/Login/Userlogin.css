@@ -28,24 +28,14 @@
   background-color: orange;
   border: none;
 }
-.footer {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  background-color: #fafafa;
-  margin-top: 100px;
-  height: 250px;
+.sponsored{
+  margin-top: 15%;
 }
-.ssicons {
-  margin-left: 25px;
-  margin-right: 25px;
+.sponsored h1{
+  margin-left: 85px;
 }
-.copyright {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border-top: solid #ebebeb 15px;
+.sponsored img{
+  width: 99%;
+  margin: 8px auto;
 }
+
